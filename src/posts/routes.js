@@ -1,5 +1,8 @@
+import { config } from "./config";
+const { api } = config;
 const routes = {
-    getData: () => '/api/data',
-  };
-  
-  export default routes;
+  selectAll: (entityName) => `${api}/${entityName}`,
+  selectOne: (entityName, id) => `${api}/${entityName}/${id}`,
+};
+
+export default routes;

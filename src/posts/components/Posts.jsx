@@ -1,7 +1,7 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React from "react";
+import { useSelector } from "react-redux";
 
-import Post from './Post.jsx';
+import Post from "./Post.jsx";
 
 const Posts = () => {
   const { posts } = useSelector((state) => state.postsReducer);

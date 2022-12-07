@@ -1,0 +1,17 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "author": 1,
+      "body": "Первый пост",
+      "comments": [1, 2]
+    }
+  ],
+  "users" : [
+    {"id" : 1, "name" : "User 1", "username" : "user_1"}
+  ],
+  "comments" : [
+    {"id" : 1, "author" : 1, "text" : "Первый комментарий"},
+    {"id" : 2, "author" : 1, "text" : "Второй комментарий"}
+  ]
+}

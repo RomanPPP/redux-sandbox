@@ -1,47 +1,30 @@
-const path = require('path')
-const webpack = require('webpack')
-module.exports = {
-  entry: './src/posts/index.jsx',
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+const path = require("path");
+const { merge } = require("webpack-merge");
+const common = require("./webpack.common.js");
+const webpack = require("webpack");
+const CompressionPlugin = require("compression-webpack-plugin")
+module.exports = merge(common, {
+  entry: {
+    tasks: { import: "./src/tasks/index.jsx", filename: "./tasks.js" },
+    posts: { import: "./src/posts/index.jsx", filename: "./posts.js" },
+    counter : { import: "./src/counter/index.js", filename: "./counter.js" },
   },
-  devServer: {  // configuration for webpack-dev-server
+  mode: "production",
+  
+  devServer: {
+    // configuration for webpack-dev-server
     historyApiFallback: true,
-    
+
     overlay: true,
     port: 8080, // port to run dev-server
+  },
+  devtool: "inline-source-map",
+  plugins : [
+    new CompressionPlugin({
+      test: /\.js(\?.*)?$/i,
     
-    },
-    devtool: 'cheap-source-map',
-  module : {
-    rules: [
-      {
-        test: /\.bin$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'url-loader',
-             options: {
-               encoding: false,
-               mimetype: false,
-               generator: (content) => {
-                 return content;
-               }
-             },
-           },
-         ],
-      },
-      {
-        test: /\.jsx?$/, // определяем тип файлов
-        exclude: /(node_modules)/,  // исключаем из обработки папку node_modules
-        loader: "babel-loader",   // определяем загрузчик
-        options:{
-            presets:[ "@babel/preset-react"]    // используемые плагины
-        }
-    }
-    
-    ]
-  }
-
-};
+      algorithm: "gzip",
+      deleteOriginalAssets: false,
+    })
+  ]
+});

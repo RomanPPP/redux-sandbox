@@ -1,11 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
+import routes from "../routes";
+import axios from "axios";
 
 const initialState = {
   comments: [],
 };
 
 const commentsSlice = createSlice({
-  name: 'comments',
+  name: "comments",
   initialState,
   reducers: {
     setComments(state, { payload }) {
@@ -14,5 +16,10 @@ const commentsSlice = createSlice({
   },
 });
 
-export const { actions } = commentsSlice;
+const { actions } = commentsSlice;
+
+export const fetchComments = async (dispatch) => {
+  const { data } = await axios.get(routes.selectAll("comments"));
+  dispatch(actions.setComments(data));
+};
 export default commentsSlice.reducer;
